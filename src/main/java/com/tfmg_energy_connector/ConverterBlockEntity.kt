@@ -29,8 +29,8 @@ class ConverterBlockEntity(pos: BlockPos, state: BlockState) :
         return worldPosition
     }
 
-    override fun getPos(): Long {
-        return worldPosition.asLong()
+    override fun getPos(): BlockPos {
+        return worldPosition
     }
 
 
