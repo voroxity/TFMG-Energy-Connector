@@ -2,7 +2,6 @@ package com.tfmg_energy_connector
 
 import com.drmangotea.tfmg.content.electricity.base.IElectric
 import com.drmangotea.tfmg.content.electricity.base.ElectricBlockValues
-import com.drmangotea.tfmg.content.electricity.base.ElectricalNetwork
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
@@ -16,23 +15,16 @@ import net.neoforged.neoforge.energy.EnergyStorage
 class ConverterBlockEntity(pos: BlockPos, state: BlockState) :
     BlockEntity(TfmgAe2Bridge.CONVERTER_BE_TYPE.get(), pos, state), IElectric {
 
-
     val energyStorage = object : EnergyStorage(100, 100, 100) {
         override fun canReceive() = true
         override fun canExtract() = true
     }
 
-
     private val electricValues = ElectricBlockValues(pos.asLong())
 
-    override fun getBlockPos(): BlockPos {
-        return worldPosition
-    }
+    override fun getBlockPos(): BlockPos = worldPosition
 
-    override fun getPos(): BlockPos {
-        return worldPosition
-    }
-
+    override fun getPos(): BlockPos = worldPosition
 
     override fun getData(): ElectricBlockValues = electricValues
 
@@ -82,7 +74,6 @@ class ConverterBlockEntity(pos: BlockPos, state: BlockState) :
             val powerToTake = getPowerUsage()
             if (powerToTake > 0) {
                 energyStorage.receiveEnergy(powerToTake, false)
-
             }
         }
 
@@ -99,7 +90,6 @@ class ConverterBlockEntity(pos: BlockPos, state: BlockState) :
             }
         }
     }
-
 
     override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
         super.saveAdditional(tag, registries)
