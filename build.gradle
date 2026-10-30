@@ -13,10 +13,8 @@ tasks.named('wrapper', Wrapper).configure {
 version = "26.03"
 group = "com.tfmg_energy_connector"
 
-ext {
-    tfmgCeUrl = 'https://github.com/Metallurgists-of-Create/Create-TFMG-CE/releases/download/v1.3.2a/tfmg-1.21.1-1.3.2a-community.jar'
-    tfmgCeJar = file("${rootDir}/libs/tfmg-1.21.1-1.3.2a-community.jar")
-}
+def tfmgCeUrl = 'https://github.com/Metallurgists-of-Create/Create-TFMG-CE/releases/download/v1.3.2a/tfmg-1.21.1-1.3.2a-community.jar'
+def tfmgCeJar = file("${rootDir}/libs/tfmg-1.21.1-1.3.2a-community.jar")
 
 repositories {
     flatDir {
@@ -39,14 +37,13 @@ repositories {
 }
 
 tasks.register('downloadTfmgCeJar') {
-    outputs.file(project.ext.tfmgCeJar)
+    outputs.file(tfmgCeJar)
     doLast {
-        def jar = project.ext.tfmgCeJar
-        if (!jar.parentFile.exists()) {
-            jar.parentFile.mkdirs()
+        if (!tfmgCeJar.parentFile.exists()) {
+            tfmgCeJar.parentFile.mkdirs()
         }
-        if (!jar.exists() || jar.length() == 0L) {
-            ant.get(src: project.ext.tfmgCeUrl, dest: jar)
+        if (!tfmgCeJar.exists() || tfmgCeJar.length() == 0L) {
+            ant.get(src: tfmgCeUrl, dest: tfmgCeJar)
         }
     }
 }
@@ -107,7 +104,7 @@ configurations {
 }
 
 dependencies {
-    implementation files(project.ext.tfmgCeJar)
+    implementation files(tfmgCeJar)
 
     implementation "curse.maven:guideme-1173950:7127444"
     implementation "curse.maven:applied-energistics-2-223794:7027323"
@@ -122,7 +119,6 @@ tasks.named('compileKotlin') { dependsOn 'downloadTfmgCeJar' }
 tasks.named('compileJava') { dependsOn 'downloadTfmgCeJar' }
 tasks.named('processResources') { dependsOn 'downloadTfmgCeJar' }
 
-// Генерация метаданных
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
     var replaceProperties = [
             minecraft_version      : minecraft_version,
