@@ -39,13 +39,14 @@ repositories {
 }
 
 tasks.register('downloadTfmgCeJar') {
-    outputs.file(tfmgCeJar)
+    outputs.file(project.ext.tfmgCeJar)
     doLast {
-        if (!tfmgCeJar.parentFile.exists()) {
-            tfmgCeJar.parentFile.mkdirs()
+        def jar = project.ext.tfmgCeJar
+        if (!jar.parentFile.exists()) {
+            jar.parentFile.mkdirs()
         }
-        if (!tfmgCeJar.exists() || tfmgCeJar.length() == 0L) {
-            ant.get(src: tfmgCeUrl, dest: tfmgCeJar)
+        if (!jar.exists() || jar.length() == 0L) {
+            ant.get(src: project.ext.tfmgCeUrl, dest: jar)
         }
     }
 }
@@ -106,7 +107,7 @@ configurations {
 }
 
 dependencies {
-    implementation files(tfmgCeJar)
+    implementation files(project.ext.tfmgCeJar)
 
     implementation "curse.maven:guideme-1173950:7127444"
     implementation "curse.maven:applied-energistics-2-223794:7027323"
