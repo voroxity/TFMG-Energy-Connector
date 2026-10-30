@@ -18,6 +18,11 @@ group = "com.tfmg_energy_connector"
 
 repositories {
 
+    // Local TFMG CE jar
+    flatDir {
+        dirs('libs')
+    }
+
     // Репозиторий для AE2
     maven {
         name = "ModMaven"
@@ -92,6 +97,9 @@ configurations {
 }
 
 dependencies {
+    // TFMG CE API must match the BlockPos-based IElectric contract.
+    implementation files('libs/tfmg-1.21.1-1.3.2a-community.jar')
+
     implementation "curse.maven:guideme-1173950:7127444"
 
     implementation "curse.maven:applied-energistics-2-223794:7027323"
