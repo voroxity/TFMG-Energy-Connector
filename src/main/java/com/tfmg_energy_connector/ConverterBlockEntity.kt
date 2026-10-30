@@ -41,15 +41,15 @@ class ConverterBlockEntity(pos: BlockPos, state: BlockState) :
 
     override fun resistance(): Float = 20f
 
-    override fun getPowerUsage(): Int {
+    override fun getPowerUsage(): Float {
         val space = energyStorage.maxEnergyStored - energyStorage.energyStored
-        return if (space > 0) minOf(space, 1024) else 0
+        return if (space > 0) minOf(space.toFloat(), 1024f) else 0f
     }
 
     override fun voltageGeneration(): Int = 0
-    override fun powerGeneration(): Int = 0
+    override fun powerGeneration(): Float = 0f
 
-    override fun onNetworkChanged(oldVoltage: Int, oldPower: Int) {
+    override fun onNetworkChanged(oldVoltage: Int, oldPower: Float) {
         setChanged()
     }
 
@@ -58,7 +58,7 @@ class ConverterBlockEntity(pos: BlockPos, state: BlockState) :
     }
 
     override fun setNetworkResistance(r: Float) {
-        data.networkResistance = r.toInt()
+        data.networkResistance = r
     }
 
     fun tick() {
@@ -71,7 +71,7 @@ class ConverterBlockEntity(pos: BlockPos, state: BlockState) :
         }
 
         if (data.voltage > 0 && !data.notEnoughPower) {
-            val powerToTake = getPowerUsage()
+            val powerToTake = getPowerUsage().toInt()
             if (powerToTake > 0) {
                 energyStorage.receiveEnergy(powerToTake, false)
             }
