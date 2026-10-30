@@ -33,7 +33,7 @@ class ConverterBlock(properties: Properties) : Block(properties), EntityBlock {
         if (net.minecraft.client.gui.screens.Screen.hasShiftDown()) {
             tooltip.add(Component.translatable("tooltip.tfmg_energy_connector.energy_converter.shift"))
         } else {
-            tooltip.add(Component.literal("§8[Нажми Shift для подробностей]"))
+            tooltip.add(Component.literal("§8[Shift]"))
         }
     }
 

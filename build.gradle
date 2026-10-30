@@ -10,7 +10,7 @@ tasks.named('wrapper', Wrapper).configure {
     distributionType = Wrapper.DistributionType.BIN
 }
 
-version = "26.03"
+version = "26.04"
 group = "com.tfmg_energy_connector"
 
 def tfmgCeUrl = 'https://github.com/Metallurgists-of-Create/Create-TFMG-CE/releases/download/v1.3.2a/tfmg-1.21.1-1.3.2a-community.jar'
