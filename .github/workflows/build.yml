@@ -1,16 +1,6 @@
 name: Build
 
 on: [push, pull_request]
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Environment to deploy to'
-        required: true
-        default: 'staging'
-        type: choice
-        options:
-          - staging
-          - production
 
 jobs:
   build:
